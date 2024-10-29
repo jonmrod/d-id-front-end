@@ -329,14 +329,21 @@ startButton.onclick = async () => {
     // Storing the Text Area value
     let txtAreaValue = document.getElementById("textArea").value
 
+    let talksValue = txtAreaValue
+    
+    if (txtAreaValue.includes('index fund')) {
+      talksValue = 'An index mutual fund or ETF (exchange-traded fund) tracks the performance of a specific market benchmark—or "index," like the popular S&P 500 Index—as closely as possible. That\'s why you may hear people refer to indexing as a "passive" investment strategy.';
+    } else if (txtAreaValue.contains('roth ira')) {
+      talksValue = 'A Roth IRA is a retirement account that allows you to invest after-tax dollars, and then withdraw your contributions and earnings tax-free after you reach a certain age';
+    } else if (txtAreaValue.contains('401k')) {
+      talksValue = 'A 401(k) is a retirement savings plan that allows employees to contribute a portion of their wages to an account, usually with the help of their employer';
+    }
+
     // Clearing the text-box element
     document.getElementById("textArea").value = ""
 
-
-    // Agents Overview - Step 3: Send a Message to a Chat session - Send a message to a Chat
-
     if (!agentFlow) {
-      // Agents Overview - Step 3: Send a Message to a Chat session - Send a message to a Chat
+      // Talks Overview - Step 3: Send a Message to a Chat session - Send a message to a Chat
     const playResponse = await fetchWithRetries(`${DID_API.url}/talks`, {
       method: 'POST',
       headers: {
@@ -348,7 +355,7 @@ startButton.onclick = async () => {
         "source_url": "https://create-images-results.d-id.com/DefaultPresenters/Emma_f/v1_image.jpeg",
         "script": {
             "type": "text",
-            "input": txtAreaValue,
+            "input": talksValue,
             "provider": {
                 "type": "microsoft",
                 "voice_id": "en-US-JennyMultilingualV2Neural",
@@ -392,13 +399,16 @@ startButton.onclick = async () => {
         session_id: sessionId,
       }),
     });
-    if (playResponse.status === 200) {
+    if (playResponse.status === 200 || playResponse.status === 201) {
       console.log('User is out of credit, API only return text messages');
       document.getElementById(
         'msgHistory'
-      ).innerHTML += `<span style='opacity:0.5'> ${txtAreaValue}</span><br>`;
+      ).innerHTML += `<span style='opacity:0.5'> ${talksValue}</span><br>`;
     }
     } else {
+
+      // Agents Overview - Step 3: Send a Message to a Chat session - Send a message to a Chat
+
       const playResponse = await fetchWithRetries(`${DID_API.url}/agents/${agentId}/chat/${chatId}`, {
         method: 'POST',
         headers: {
