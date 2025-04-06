@@ -1,15 +1,12 @@
-# fly.toml app configuration file generated for d-id-front-end-ugpfw on 2025-04-06T19:25:57Z
+# fly.toml app configuration file generated for d-id-front-end-unzuig on 2025-04-06T19:50:10Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'd-id-front-end-ugpfw'
+app = 'd-id-front-end-unzuig'
 primary_region = 'iad'
 
 [build]
-
-[env]
-  PORT = '8080'
 
 [http_service]
   internal_port = 8080
