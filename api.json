@@ -1,5 +1,5 @@
 {
-    "key": "🤫",
+    "key": process.env.API_KEY,
     "url": "https://api.d-id.com",
     "service": "talks"
 }
