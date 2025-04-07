@@ -1,5 +1,11 @@
-FROM node:20-alpine
-WORKDIR /
-COPY . .
-RUN npm install --production
-CMD ["node", "./app.js"]
+# Specify a base image
+FROM node:alpine
+
+#Install some dependencies
+
+WORKDIR /usr/app
+COPY ./ /usr/app
+RUN npm install
+
+# Set up a default command
+CMD [ "npm","start" ]
