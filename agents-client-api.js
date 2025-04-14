@@ -1,6 +1,7 @@
 'use strict';
 const fetchJsonFile = await fetch("./api.json")
 const DID_API = await fetchJsonFile.json()
+DID_API.key = process.env.API_KEY || DID_API.key
 
 if (DID_API.key == '🤫') alert('Please put your api key inside ./api.json and restart..');
 
